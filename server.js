@@ -3,10 +3,11 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-    origin: "https://6137da101bd4820c1b473b14--stupefied-franklin-783e20.netlify.app"
-};
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
