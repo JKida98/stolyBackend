@@ -3,11 +3,20 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-    origin: "https://stupefied-franklin-783e20.netlify.app/"
-};
 
-app.use(cors(corsOptions));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://stupefied-franklin-783e20.netlify.app/");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+    res.header("Access-Control-Allow-Credentials", true); 
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(204);
+    }
+    next();
+  });
 
 // parse requests of content-type - application/json
 app.use(express.json());
